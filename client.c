@@ -6,50 +6,59 @@
 /*   By: zramahaz <zramahaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 11:30:06 by zramahaz          #+#    #+#             */
-/*   Updated: 2024/06/04 17:08:42 by zramahaz         ###   ########.fr       */
+/*   Updated: 2024/06/14 11:54:11 by zramahaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
 static int	ft_atoi(const char *str);
-static void ft_send_signal(unsigned int octet, char c, int pid);
+static void	ft_send_signal(int pid, char c);
 
 int main(int argc, char **argv)
 {
     int pid;
-    long        i;
-    
+	int	i;
+
     if (argc != 3)
     {
         write(2, "Error\n", 6);
-        return (1);
+		return (1);
     }
-    pid = ft_atoi(argv[1]);
-    i = 0;
-    while (argv[2][i])
-    {
-        ft_send_signal(7, argv[2][i] , pid);
-        usleep(10);
-        i++;
-    }
-    return 0;
+	i = 0;
+	pid = ft_atoi(argv[1]);
+	while (argv[2][i])
+	{
+		ft_send_signal(pid, argv[2][i]);
+		i++;
+	}
+	ft_send_signal(pid, 0);
+	return (0);
 }
 
-static void ft_send_signal(unsigned int octet, char c, int pid)
+static void	ft_send_signal(int pid, char c)
 {
-    int   binary;
+	int	bit;
+    int value;
 
-    if (octet == -1)
-        return ;
-    binary = (c >> (octet) & 1);
-    if (binary == 0)
-        // kill(pid, SIGUSR1);
-        printf("%d ", binary);
-    else
-        // kill(pid, SIGUSR2);
-        printf("%d ", binary);
-    ft_send_signal(octet - 1, c, pid);
+	bit = 0;
+	while (bit < 8)
+	{
+        // value = (c & (1 << bit));
+        value = ((c >> (7 - bit)) & 1);
+		if (value)
+        {
+            write(1, "1", 1);
+			kill(pid, SIGUSR1);
+        }
+		else
+        {
+            write(1, "0", 1);
+			kill(pid, SIGUSR2);
+		}
+		usleep(500);
+		bit++;
+	}
 }
 
 static int	ft_atoi(const char *str)
