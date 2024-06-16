@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zramahaz <zramahaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zramahaz <zramahaz@student.42antanana      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/02 09:29:15 by zramahaz          #+#    #+#             */
-/*   Updated: 2024/06/16 14:03:38 by zramahaz         ###   ########.fr       */
+/*   Created: 2024/03/10 14:16:39 by zramahaz          #+#    #+#             */
+/*   Updated: 2024/03/13 16:42:28 by zramahaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libftprintf.h"
 
-# include<unistd.h>
-# include<signal.h>
-# include"ft_printf/libftprintf.h"
-
-#endif
+void	ft_putchar(int c)
+{
+	write(1, &c, 1);
+}

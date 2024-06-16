@@ -6,7 +6,7 @@
 /*   By: zramahaz <zramahaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 11:30:06 by zramahaz          #+#    #+#             */
-/*   Updated: 2024/06/14 11:54:11 by zramahaz         ###   ########.fr       */
+/*   Updated: 2024/06/16 14:09:12 by zramahaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,26 @@ static void	ft_send_signal(int pid, char c);
 
 int main(int argc, char **argv)
 {
-    int pid;
+    int pid_server;
 	int	i;
 
     if (argc != 3)
     {
-        write(2, "Error\n", 6);
+        ft_printf("Error\n");
 		return (1);
     }
 	i = 0;
-	pid = ft_atoi(argv[1]);
+	pid_server = ft_atoi(argv[1]);
 	while (argv[2][i])
 	{
-		ft_send_signal(pid, argv[2][i]);
+		ft_send_signal(pid_server, argv[2][i]);
 		i++;
 	}
-	ft_send_signal(pid, 0);
+	ft_send_signal(pid_server, '\0');
 	return (0);
 }
 
-static void	ft_send_signal(int pid, char c)
+static void	ft_send_signal(int pid_server, char c)
 {
 	int	bit;
     int value;
@@ -44,18 +44,12 @@ static void	ft_send_signal(int pid, char c)
 	bit = 0;
 	while (bit < 8)
 	{
-        // value = (c & (1 << bit));
-        value = ((c >> (7 - bit)) & 1);
+        value = (c & (1 << bit));
+        // value = ((c >> (7 - bit)) & 1);
 		if (value)
-        {
-            write(1, "1", 1);
-			kill(pid, SIGUSR1);
-        }
+			kill(pid_server, SIGUSR1);
 		else
-        {
-            write(1, "0", 1);
-			kill(pid, SIGUSR2);
-		}
+			kill(pid_server, SIGUSR2);
 		usleep(500);
 		bit++;
 	}
