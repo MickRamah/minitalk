@@ -6,7 +6,7 @@
 /*   By: zramahaz <zramahaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 11:30:06 by zramahaz          #+#    #+#             */
-/*   Updated: 2024/06/16 14:09:12 by zramahaz         ###   ########.fr       */
+/*   Updated: 2024/06/29 12:00:34 by zramahaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     int pid_server;
 	int	i;
 
-    if (argc != 3)
+    if (argc != 3 || argv[2][0] == '\0')
     {
         ft_printf("Error\n");
 		return (1);

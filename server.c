@@ -6,7 +6,7 @@
 /*   By: zramahaz <zramahaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 11:29:54 by zramahaz          #+#    #+#             */
-/*   Updated: 2024/06/16 14:09:30 by zramahaz         ###   ########.fr       */
+/*   Updated: 2024/06/29 12:05:39 by zramahaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	pid_server = getpid();
-	ft_printf("PID server = %d\n", pid_server);
+	ft_printf("PID SERVER = %d\n", pid_server);
 	signal(SIGUSR1, sig_handler);
 	signal(SIGUSR2, sig_handler);
 	while (argc == 1)
