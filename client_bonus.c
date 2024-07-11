@@ -6,7 +6,7 @@
 /*   By: zramahaz <zramahaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 14:12:49 by zramahaz          #+#    #+#             */
-/*   Updated: 2024/07/11 14:24:43 by zramahaz         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:12:06 by zramahaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	send_msg(pid_t sv_pid, char *msg)
 				kill(sv_pid, SIGUSR1);
 			else
 				kill(sv_pid, SIGUSR2);
-			usleep(50);
+			usleep(100);
 			c <<= 1;
 		}
 		msg++;
@@ -75,7 +75,7 @@ void	send_msg(pid_t sv_pid, char *msg)
 			kill(sv_pid, SIGUSR1);
 		else
 			kill(sv_pid, SIGUSR2);
-		usleep(50);
+		usleep(100);
 		c <<= 1;
 	}
 }

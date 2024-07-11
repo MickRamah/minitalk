@@ -6,7 +6,7 @@
 /*   By: zramahaz <zramahaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 14:21:01 by zramahaz          #+#    #+#             */
-/*   Updated: 2024/07/11 14:21:12 by zramahaz         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:33:52 by zramahaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ char	*ft_stack_str(char *str, char c)
 	if (str == NULL)
 	{
 		str = malloc(sizeof(char));
+		if (str == NULL)
+			return (NULL);
 		*str = '\0';
 	}
 	dest = ft_strjoin(str, &c);
@@ -82,7 +84,7 @@ void	handle_sigusr(int signum, siginfo_t *info, void *ucontent)
 	static int				bit_itr = -1;
 	static unsigned char	c;
 	static char				*str;
-	
+
 	(void)ucontent;
 	if (bit_itr < 0)
 		bit_itr = 7;
@@ -91,14 +93,13 @@ void	handle_sigusr(int signum, siginfo_t *info, void *ucontent)
 	bit_itr--;
 	if (bit_itr < 0 && c)
 	{
-		// ft_printf("%c", c);
 		str = ft_stack_str(str, c);
 		c = 0;
 		return ;
 	}
     if (bit_itr < 0 && c == 0)
 	{
-		ft_printf("str = |%s|\n", str);
+		ft_printf("%s\n", str);
 		free(str);
 		str = NULL;
         kill(info->si_pid, SIGUSR2);
@@ -124,9 +125,9 @@ int	main(void)
 
 	pid = getpid();
 	ft_printf("SERVER PID = %d\n\n", pid);
-	config_signals();
-    while (1)
-    {
-    }
+    config_signals();
+	while (1)
+	{
+	}
 	return (0);
 }
